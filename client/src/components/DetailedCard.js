@@ -7,15 +7,12 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import { Box, IconButton, TextField, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function BlogCard({
+export default function DetailedCard({
   title,
   description,
   image,
@@ -26,28 +23,9 @@ export default function BlogCard({
   likes,
   comments,
 }) {
-  const navigate = useNavigate();
   const [newComment, setNewComment] = useState("");
   const [likeCount, setLikeCount] = useState(likes || 0);
   const [commentList, setCommentList] = useState(comments || []);
-
-  const handleEdit = () => {
-    navigate(`/blog-details/${id}`);
-  };
-  const handleView = (blogId) => {
-    navigate(`/detail-blog/${blogId}`);
-  };
-  const handleDelete = async () => {
-    try {
-      const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-blog/${id}`);
-      if (data?.success) {
-        alert("Blog Deleted");
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleLike = async () => {
     try {
@@ -65,7 +43,7 @@ export default function BlogCard({
   const handleComment = async () => {
     try {
       const { data } = await axios.post(`http://localhost:8080/api/v1/blog/comment/${id}`, {
-        comment: newComment
+        comment: newComment,
       });
       if (data?.success) {
         setCommentList([...commentList, newComment]);
@@ -88,26 +66,16 @@ export default function BlogCard({
   return (
     <Card
       sx={{
-        width: "40%",
+        width: "90%",
         margin: "auto",
         mt: 2,
         padding: 2,
         boxShadow: "5px 5px 10px #ccc",
-        ":hover:": {
+        ":hover": {
           boxShadow: "10px 10px 20px #ccc",
         },
       }}
     >
-      {isUser && (
-        <Box display={"flex"}>
-          <IconButton onClick={handleEdit} sx={{ marginLeft: "auto" }}>
-            <ModeEditIcon color="info" />
-          </IconButton>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon color="error" />
-          </IconButton>
-        </Box>
-      )}
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -118,9 +86,7 @@ export default function BlogCard({
         subheader={new Date(time).toLocaleDateString()}
         action={
           <Box display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={() => handleView(id)}>
-              View
-            </Button>
+            {/* Any additional actions can be placed here */}
           </Box>
         }
       />

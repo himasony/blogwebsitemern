@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BlogCard from "../components/BlogCard";
-import { Box, Typography } from "@mui/material";
+import { Box, ClickAwayListener, Typography } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +31,10 @@ const HomePage = () => {
     fetchAllBlogs();
   }, []);
 
+  const handleView = (blogId) => {
+    navigate(`/detail-blog/${blogId}`);
+  };
+
   return (
     <Box>
       <Typography variant="h3" textAlign="center" margin={4} color="black">
@@ -38,10 +44,12 @@ const HomePage = () => {
         <Typography variant="h5" textAlign="center">Loading...</Typography>
       ) : (
         <Box display="flex" flexWrap="wrap" justifyContent="center">
+          
           {blogs.length > 0 ? (
             blogs.map((blog) => (
               <Box key={blog._id} mb={2} mx={2} width="80%">
                 <BlogCard
+                  
                   id={blog._id}
                   title={blog.title}
                   description={blog.description}
@@ -51,6 +59,7 @@ const HomePage = () => {
                   isUser={localStorage.getItem("userId") === blog.user?._id}
                   likes={blog.likes}
                   comments={blog.comments}
+                  
                 />
               </Box>
             ))
@@ -58,6 +67,7 @@ const HomePage = () => {
             <Typography variant="h5">No blogs found</Typography>
           )}
         </Box>
+        
       )}
     </Box>
   );

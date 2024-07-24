@@ -11,6 +11,7 @@ import AdminPage from './pages/AdminPage';
 import EditBlog from './pages/EditBlog';
 import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/Home";
+import Detailedblog from "./pages/Detailed blog";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPage />} /> 
         <Route path="/edit-blog/:id" element={<EditBlog />} />
+        <Route path="/detail-blog/:id" element={<Detailedblog />} />
       </Routes>
     </>
   );
