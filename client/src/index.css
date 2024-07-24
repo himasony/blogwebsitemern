@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "roboto", sans-serif;
+  background-image: url("https://blogger.googleusercontent.com/img/a/AVvXsEj318GO9i3Ze11XGERHomVsp4Z5L_qwGA8CV_RtmVFNvHtIGq-ZraYALFsd70LFgO4WCXWwa9BUmOaeI3llJyur9eMCQU0ZECvYwmUlaLzhOpEjEFA-DPYSUwGWU9EDylEPMOegGoWkr92e4BSvKioxBg94iEpyjEPNekJUhhCCbdnmAMd45M5QjLtUug=s1600-rw");
+  background-size: cover;
+  
+  }
