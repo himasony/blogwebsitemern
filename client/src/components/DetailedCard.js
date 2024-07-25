@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -22,10 +22,30 @@ export default function DetailedCard({
   isUser,
   likes,
   comments,
-}) {
+})  {
   const [newComment, setNewComment] = useState("");
-  const [likeCount, setLikeCount] = useState(likes || 0);
-  const [commentList, setCommentList] = useState(comments || []);
+  const [likeCount, setLikeCount] = useState(likes);
+  const [commentList, setCommentList] = useState([]);
+
+  console.log(image);
+  useEffect(() => {
+    if (comments) {
+      setCommentList(comments);
+    }
+  }, [comments]);
+
+  useEffect(() => {
+    setLikeCount(likes);
+  }, [likes]);
+
+  useEffect(() => {
+    console.log("Updated likeCount:", likeCount);
+  }, [likeCount]);
+
+  useEffect(() => {
+    console.log("Updated commentList:", commentList);
+  }, [commentList]);
+
 
   const handleLike = async () => {
     try {
@@ -39,7 +59,6 @@ export default function DetailedCard({
       console.error("Error liking the blog", error);
     }
   };
-
   const handleComment = async () => {
     try {
       const { data } = await axios.post(`http://localhost:8080/api/v1/blog/comment/${id}`, {
@@ -55,7 +74,6 @@ export default function DetailedCard({
       console.error("Error adding comment", error);
     }
   };
-
   const handleShare = () => {
     const shareUrl = `${window.location.origin}/blog/${id}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
@@ -90,7 +108,6 @@ export default function DetailedCard({
           </Box>
         }
       />
-      <CardMedia component="img" height="194" image={image} alt={title} />
       <CardContent>
         <Typography variant="h6" color="text.secondary">
           Title: {title}

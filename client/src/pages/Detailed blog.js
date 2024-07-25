@@ -34,7 +34,6 @@ useEffect(() => {
       id={blog._id}
       title={blog.title}
       description={blog.description}
-      image={blog.image}
       username={blog.user?.username || "Unknown User"}
       time={blog.createdAt}
       isUser={localStorage.getItem("userId") === blog.user?._id}

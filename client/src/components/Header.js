@@ -37,7 +37,7 @@ const Header = () => {
     <>
       <AppBar position="sticky">
         <Toolbar>
-          <Typography variant="h4">BLOGIFY</Typography>
+          <Typography variant="h4" style={{ fontFamily: 'Georgia, serif', fontWeight: 300, fontStyle: 'italic' }}>BLOGIFY</Typography>
           {isLogin && (
             <Box display={"flex"} marginLeft="auto" marginRight={"auto"}>
               <Tabs

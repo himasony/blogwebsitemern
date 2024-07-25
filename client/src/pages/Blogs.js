@@ -29,6 +29,8 @@ const Blogs = () => {
             image={blog?.image}
             username={blog?.user?.username}
             time={blog.createdAt}
+            likes={blog?.likes}
+            comments={blog?.comments}
           />
         ))}
     </div>
